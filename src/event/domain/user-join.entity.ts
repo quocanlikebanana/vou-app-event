@@ -16,6 +16,12 @@ export class UserJoinEntity extends Entity<UserJoinProps> {
         }
     }
 
+    public refillTurn(turn: number): void {
+        if (this.props.turn < turn) {
+            this.props.turn = turn;
+        }
+    }
+
     public addTurn(turn: number): void {
         this.props.turn = this.props.turn + turn;
     }

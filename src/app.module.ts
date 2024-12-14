@@ -6,6 +6,8 @@ import { InfraModule } from './infra/infra.module';
 import { ReaderModule } from './reader/reader.module';
 import { ConfigModule } from '@nestjs/config';
 import configuration, { ConfigurationService } from './utils/configuration';
+import { ScheduleModule } from '@nestjs/schedule';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import configuration, { ConfigurationService } from './utils/configuration';
       isGlobal: true,
       load: [configuration],
     }),
+    ScheduleModule.forRoot(),
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [

@@ -1,10 +1,10 @@
-import { ValueObject } from "src/common/value-object.i";
+import { Entity } from "src/common/entity.i";
 
 export type UserLikeProps = {
     userId: string;
     eventId: string;
 };
 
-export class UserLikeValueObject extends ValueObject<UserLikeProps> {
+export class UserLikeEntity extends Entity<UserLikeProps> {
     protected validate(props: UserLikeProps): void { }
 }

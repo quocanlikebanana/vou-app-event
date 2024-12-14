@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from './prisma/prisma.service';
-import { RepositoriesService } from './repositories/repositories.service';
+import { PersistenceModule } from './persistence/persistence.module';
 
 @Module({
-
-  providers: [PrismaService, RepositoriesService]
+  imports: [PersistenceModule],
 })
 export class InfraModule { }

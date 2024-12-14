@@ -27,6 +27,7 @@ model Event {
   eventStatus EventStatus
   startDate   DateTime
   endDate     DateTime
+  turnsPerDay Int
   partnerId   String?
 
   User_Join_Event User_Join_Event[]
@@ -40,6 +41,8 @@ model User_Join_Event {
   turn    Int
 
   Event Event @relation(fields: [eventId], references: [id])
+
+  @@unique([userId, eventId])
 }
 
 model User_Like_Event {
@@ -48,4 +51,6 @@ model User_Like_Event {
   eventId String
 
   Event Event @relation(fields: [eventId], references: [id])
+
+  @@unique([userId, eventId])
 }
