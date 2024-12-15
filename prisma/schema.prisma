@@ -28,7 +28,7 @@ model Event {
   startDate   DateTime
   endDate     DateTime
   turnsPerDay Int
-  partnerId   String?
+  partnerId   String
 
   User_Join_Event User_Join_Event[]
   User_Like_Event User_Like_Event[]
@@ -53,4 +53,14 @@ model User_Like_Event {
   Event Event @relation(fields: [eventId], references: [id])
 
   @@unique([userId, eventId])
+}
+
+model StartInOneDay_Event {
+  eventId          String   @id @default(uuid())
+  notificationDate DateTime
+}
+
+model StartNow_Event {
+  eventId          String   @id @default(uuid())
+  notificationDate DateTime
 }

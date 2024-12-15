@@ -7,7 +7,7 @@ import { ReaderModule } from './reader/reader.module';
 import { ConfigModule } from '@nestjs/config';
 import configuration, { ConfigurationService } from './utils/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
-import { NotificationModule } from './notification/notification.module';
+import { PopulateService } from './event/standalone/populate.service';
 
 @Module({
   imports: [
@@ -19,7 +19,6 @@ import { NotificationModule } from './notification/notification.module';
       load: [configuration],
     }),
     ScheduleModule.forRoot(),
-    NotificationModule,
   ],
   controllers: [AppController],
   providers: [

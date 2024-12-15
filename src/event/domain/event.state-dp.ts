@@ -107,6 +107,6 @@ class RejectedState extends EventStatusState {
     }
 
     public update(): void {
-        throw new DomainError("Cannot update event that is rejected");
+        this.context.transitionTo(new PendingState());
     }
 }

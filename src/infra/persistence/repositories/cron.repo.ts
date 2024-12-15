@@ -7,19 +7,49 @@ export default class CronRepository implements ICronRepository {
         private readonly prismaService: PrismaService
     ) { }
 
-    addStartInOneDay(notification: NotificationQueueDTO): Promise<void> {
-        throw new Error("Method not implemented.");
+    async addStartInOneDay(notification: NotificationQueueDTO): Promise<void> {
+        await this.prismaService.startInOneDay_Event.create({
+            data: {
+                eventId: notification.eventId,
+                notificationDate: notification.notificationDate,
+            }
+        });
     }
 
-    popAllStartInOneDay(): Promise<NotificationQueueDTO[]> {
-        throw new Error("Method not implemented.");
+    async popAllStartInOneDay(): Promise<NotificationQueueDTO[]> {
+        const res = await this.prismaService.$transaction(async (tx) => {
+            const res = await tx.startInOneDay_Event.findMany();
+            await tx.startInOneDay_Event.deleteMany();
+            return res.map(e => {
+                return {
+                    eventId: e.eventId,
+                    notificationDate: e.notificationDate
+                };
+            });
+        });
+        return res;
     }
 
-    addStartNow(notification: NotificationQueueDTO): Promise<void> {
-        throw new Error("Method not implemented.");
+    async addStartNow(notification: NotificationQueueDTO): Promise<void> {
+        await this.prismaService.startNow_Event.create({
+            data: {
+                eventId: notification.eventId,
+                notificationDate: notification.notificationDate,
+            }
+        });
     }
 
-    popAllStartNow(): Promise<NotificationQueueDTO[]> {
-        throw new Error("Method not implemented.");
+    async popAllStartNow(): Promise<NotificationQueueDTO[]> {
+        const res = await this.prismaService.$transaction(async (tx) => {
+            const res = await tx.startNow_Event.findMany();
+            await tx.startNow_Event.deleteMany();
+            return res.map(e => {
+                return {
+                    eventId: e.eventId,
+                    notificationDate: e.notificationDate
+                };
+            });
+        });
+        return res;
     }
 }

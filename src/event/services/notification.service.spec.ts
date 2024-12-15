@@ -15,4 +15,8 @@ describe('NotificationService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  it('should return a string', () => {
+    expect(service.sendNotificationToUsers(["user1", "user2"], "Hello"));
+  });
 });

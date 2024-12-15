@@ -8,11 +8,12 @@ import CronRepository from './repositories/cron.repo';
 
 @Injectable()
 export class UnitOfWork implements IUnitOfWork, OnModuleDestroy {
-    private readonly prismaService: PrismaService;
     public readonly eventRepository: IEventRepository;
     public readonly cronRepository: ICronRepository;
 
-    constructor() {
+    constructor(
+        private readonly prismaService: PrismaService
+    ) {
         this.eventRepository = new EventRepository(this.prismaService);
         this.cronRepository = new CronRepository(this.prismaService);
     }
@@ -22,7 +23,7 @@ export class UnitOfWork implements IUnitOfWork, OnModuleDestroy {
      */
     async executeTransaction<T>(fn: (tx: UnitOfWork) => Promise<T>): Promise<T> {
         return this.prismaService.$transaction(async (tx) => {
-            const uow = new UnitOfWork();
+            const uow = new UnitOfWork(this.prismaService);
             uow.prismaService.$connect();
             return fn(uow);
         });
