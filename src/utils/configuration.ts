@@ -1,10 +1,10 @@
 import { ConfigService } from "@nestjs/config";
 
 export default () => ({
-    port: parseInt(process.env.PORT, 10) || 3000,
+    port: parseInt(process.env.PORT ?? "3000", 10),
     rbmq: {
         host: process.env.RABBITMQ_HOST || "127.0.0.1",
-        port: parseInt(process.env.RABBITMQ_PORT, 10) || 5672,
+        port: parseInt(process.env.RABBITMQ_PORT ?? "5672", 10),
         event_queue: process.env.EVENT_QUEUE || "event_queue",
     },
 });

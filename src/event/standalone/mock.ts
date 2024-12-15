@@ -1,12 +1,12 @@
 import { generateUUID } from "src/utils/id"
-import { CreateEventParam } from "../param/event.param"
+import { CreateNewEventParam } from "../param/event.param"
 
 const imageUrl = "https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws="
 
 const day = 1000 * 60 * 60 * 24;
 const base = new Date(Date.now() + day * 1);
 
-export const mockCreateEventParams: CreateEventParam[] = [
+export const mockCreateEventParams: CreateNewEventParam[] = [
     {
         name: "Spring Boot",
         description: "Spring Boot is a project built on the top of the Spring framework. It provides a simpler and faster way to set up, configure, and run both simple and web-based applications.",

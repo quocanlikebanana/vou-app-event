@@ -3,7 +3,7 @@ import { EventService } from './event.service';
 import IUnitOfWork from 'src/common/unit-of-work.i';
 import { InfraModule } from 'src/infra/infra.module';
 import { UnitOfWork } from 'src/infra/persistence/unitofwork';
-import { CreateEventParam, JoinEventParam, LeaveEventParam, LikeEventParam, UnlikeEventParam, UpdateEventParam, ValidateEventApprovalParam } from '../param/event.param';
+import { CreateNewEventParam, JoinEventParam, LeaveEventParam, LikeEventParam, UnlikeEventParam, UpdateEventInfoParam, ValidateEventApprovalParam } from '../param/event.param';
 import { PrismaService } from 'src/infra/persistence/prisma.service';
 import { EventAggregate } from '../domain/event.agg';
 import { EventStatus } from '@prisma/client';
@@ -36,7 +36,7 @@ describe('EventService init', () => {
   });
 
   it('should create a new event', async () => {
-    const createEventParam: CreateEventParam = {
+    const createEventParam: CreateNewEventParam = {
       name: 'Event Name',
       description: 'Event Description',
       image: 'Event Image',
@@ -58,7 +58,7 @@ describe('EventService init', () => {
     let userId: string;
 
     beforeAll(async () => {
-      const createEventParam: CreateEventParam = {
+      const createEventParam: CreateNewEventParam = {
         name: 'Event Name',
         description: 'Event Description',
         image: 'Event Image',
@@ -77,7 +77,7 @@ describe('EventService init', () => {
     });
 
     it('should update event info', async () => {
-      const updateEventParam: UpdateEventParam = {
+      const updateEventParam: UpdateEventInfoParam = {
         id: event.id,
         name: 'Event Name Updated',
         description: 'Event Description Updated',

@@ -46,7 +46,7 @@ export class EventAggregate extends AggregateRoot<EventProps> {
         return newEvent;
     }
 
-    update(event: Partial<UpdateEventDTO>): void {
+    updateInfo(event: Partial<UpdateEventDTO>): void {
         this.props._eventStatusContext.update();
         const notNullProps = removeNullValues(event);
         const newProps = { ...this.props, ...notNullProps };

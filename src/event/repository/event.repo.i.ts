@@ -14,7 +14,7 @@ export abstract class IEventRepository {
     abstract addUserLike(userLike: UserLikeEntity): Promise<void>;
     abstract deleteUserLike(userId: string, eventId: string): Promise<void>;
 
-    abstract getById(eventId: string): Promise<EventAggregate | null>;
+    abstract getById(eventId: string): Promise<EventAggregate>;
     abstract getHappeningEvents(): Promise<EventAggregate[]>;
     abstract getUsersJoinedEvent(eventId: string): Promise<UserJoinEntity[]>;
 }

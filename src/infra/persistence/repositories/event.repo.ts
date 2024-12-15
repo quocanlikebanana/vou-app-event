@@ -6,6 +6,8 @@ import { EventStatus } from "src/common/type";
 import { UserJoinEntity } from "src/event/domain/user-join.entity";
 import { UserLikeEntity } from "src/event/domain/user-like.entity";
 import { $Enums } from "@prisma/client";
+import { DomainError } from "src/common/domain.error";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 export default class EventRepository implements IEventRepository {
     constructor(
@@ -93,19 +95,35 @@ export default class EventRepository implements IEventRepository {
     }
 
     async delete(eventId: string): Promise<void> {
-        await this.prismaService.event.delete({
-            where: { id: eventId }
-        });
+        try {
+            await this.prismaService.event.delete({
+                where: { id: eventId }
+            });
+        } catch (error) {
+            if (error instanceof PrismaClientKnownRequestError && error.code === "P2025") {
+                throw new DomainError("Event not found");
+            } else {
+                throw error;
+            }
+        }
     }
 
     async addUserJoin(userJoin: UserJoinEntity): Promise<void> {
-        await this.prismaService.user_Join_Event.create({
-            data: {
-                userId: userJoin.props.userId,
-                eventId: userJoin.props.eventId,
-                turn: userJoin.props.turn,
+        try {
+            await this.prismaService.user_Join_Event.create({
+                data: {
+                    userId: userJoin.props.userId,
+                    eventId: userJoin.props.eventId,
+                    turn: userJoin.props.turn,
+                }
+            });
+        } catch (error) {
+            if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
+                throw new DomainError("User already joined event");
+            } else {
+                throw error;
             }
-        });
+        }
     }
 
     async updateUserJoinTurn(event: EventAggregate): Promise<void> {
@@ -131,12 +149,20 @@ export default class EventRepository implements IEventRepository {
     }
 
     async addUserLike(userLike: UserLikeEntity): Promise<void> {
-        await this.prismaService.user_Like_Event.create({
-            data: {
-                userId: userLike.props.userId,
-                eventId: userLike.props.eventId,
+        try {
+            await this.prismaService.user_Like_Event.create({
+                data: {
+                    userId: userLike.props.userId,
+                    eventId: userLike.props.eventId,
+                }
+            });
+        } catch (error) {
+            if (error instanceof PrismaClientKnownRequestError && error.code === "P2002") {
+                throw new DomainError("User already liked event");
+            } else {
+                throw error;
             }
-        });
+        }
     }
 
     async deleteUserLike(userId: string, eventId: string): Promise<void> {
@@ -148,7 +174,7 @@ export default class EventRepository implements IEventRepository {
         });
     }
 
-    async getById(eventId: string): Promise<EventAggregate | null> {
+    async getById(eventId: string): Promise<EventAggregate> {
         const event = await this.prismaService.event.findUnique({
             where: { id: eventId },
             include: {
@@ -157,7 +183,7 @@ export default class EventRepository implements IEventRepository {
             }
         });
         if (!event) {
-            return null;
+            throw new DomainError("Event not found");
         }
         return this.convertToAggregate(event);
     }

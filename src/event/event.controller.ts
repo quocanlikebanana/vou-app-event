@@ -1,20 +1,24 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Sse } from '@nestjs/common';
 import { EventService } from './services/event.service';
-import { CreateEventParam, JoinEventParam, LeaveEventParam, LikeEventParam, UnlikeEventParam, UpdateEventParam, ValidateEventApprovalParam } from './param/event.param';
+import { CreateNewEventParam, JoinEventParam, LeaveEventParam, LikeEventParam, UnlikeEventParam, UpdateEventInfoParam, ValidateEventApprovalParam } from './param/event.param';
 
 @Controller()
 export class EventController {
     constructor(private readonly eventService: EventService) { }
 
     @Post('/create')
-    async createNewEvent(@Body() createEventParam: CreateEventParam): Promise<{ id: string }> {
-        console.log('createEventParam', createEventParam);
+    async createNewEvent(@Body() createEventParam: CreateNewEventParam): Promise<{ id: string }> {
         return this.eventService.createNewEvent(createEventParam);
     }
 
     @Post('/update')
-    async updateEventInfo(@Body() updateEventParam: UpdateEventParam): Promise<void> {
+    async updateEventInfo(@Body() updateEventParam: UpdateEventInfoParam): Promise<void> {
         await this.eventService.updateEventInfo(updateEventParam);
+    }
+
+    @Post('/delete')
+    async deleteEvent(@Body('eventId') eventId: string): Promise<void> {
+        await this.eventService.deleteEvent(eventId);
     }
 
     @Post('/validate')

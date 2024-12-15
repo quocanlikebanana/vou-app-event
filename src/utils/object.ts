@@ -1,4 +1,4 @@
-function removeNullValues<T>(obj: T): Partial<T> {
+function removeNullValues<T extends object>(obj: T): Partial<T> {
     return Object.fromEntries(
         Object.entries(obj).filter(([_, value]) => value !== null)
     ) as Partial<T>;
