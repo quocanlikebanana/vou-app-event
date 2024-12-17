@@ -14,11 +14,20 @@ async function bootstrap() {
     transform: true,
     exceptionFactory: (validationErrors: ValidationError[] = []) => {
       console.log('[VALIDATION ERROR]', validationErrors);
+      const extractErrors = (errors: ValidationError[], parentPath = ''): any[] => {
+        return errors.flatMap(error => {
+          const propertyPath = parentPath ? `${parentPath}.${error.property}` : error.property;
+          const currentError = error.constraints ? {
+            property: propertyPath,
+            message: Object.values(error.constraints).join(', '),
+          } : null;
 
-      const result = validationErrors.map((error) => ({
-        property: error.property,
-        message: error.constraints ? error.constraints[Object.keys(error.constraints)[0]] : 'Unknown error',
-      }));
+          const nestedErrors = error.children ? extractErrors(error.children, propertyPath) : [];
+          return currentError ? [currentError, ...nestedErrors] : nestedErrors;
+        });
+      };
+
+      const result = extractErrors(validationErrors);
       return new BadRequestException(result);
     },
   }));

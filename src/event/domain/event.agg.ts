@@ -24,11 +24,7 @@ export class EventAggregate extends AggregateRoot<EventProps> {
     private constructor(props: EventProps, id?: string) { super(props, id); }
 
     protected validate(props: EventProps): void {
-        const now = new Date();
         checkAllPropertiesNotNull(props);
-        if (props.startDate <= now) {
-            throw new DomainError("Start date must be in the future");
-        }
         if (props.startDate >= props.endDate) {
             throw new DomainError("Start date must be before end date");
         }
@@ -38,6 +34,12 @@ export class EventAggregate extends AggregateRoot<EventProps> {
     }
 
     static create(event: CreateEventDTO, id?: string): EventAggregate {
+        if (id == null) {
+            const now = new Date();
+            if (event.startDate <= now) {
+                throw new DomainError("Start date must be in the future");
+            }
+        }
         const newEvent = new EventAggregate(
             {
                 ...event,

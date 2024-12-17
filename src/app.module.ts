@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EventModule } from './event/event.module';
@@ -7,7 +7,7 @@ import { ReaderModule } from './reader/reader.module';
 import { ConfigModule } from '@nestjs/config';
 import configuration, { ConfigurationService } from './utils/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
-import { PopulateService } from './event/standalone/populate.service';
+import { LoggerMiddleware } from './utils/middlewares/logger.mdw';
 
 @Module({
   imports: [
@@ -26,4 +26,10 @@ import { PopulateService } from './event/standalone/populate.service';
     ConfigurationService,
   ],
 })
-export class AppModule { }
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}

@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
 export default () => ({
@@ -9,7 +10,7 @@ export default () => ({
     },
 });
 
-
+@Injectable()
 export class ConfigurationService {
     constructor(
         private readonly config: ConfigService
@@ -29,5 +30,9 @@ export class ConfigurationService {
 
     get eventQueue(): string {
         return this.config.get<string>('EVENT_QUEUE', 'event_queue');
+    }
+
+    get logDir(): string | null {
+        return this.config.get<string>('LOG_DIR') ?? null;
     }
 }

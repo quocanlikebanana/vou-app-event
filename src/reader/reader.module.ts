@@ -1,9 +1,19 @@
 import { Module } from '@nestjs/common';
-import { ReaderService } from './reader.service';
-import { ReaderController } from './reader.controller';
+import { EventService } from './event.service';
+import { EventController } from './event.controller';
+import { InfraModule } from 'src/infra/infra.module';
+import IEventQuery from './query/event.query.i';
+import EventQuery from 'src/infra/persistence/queries/event.query';
 
 @Module({
-  providers: [ReaderService],
-  controllers: [ReaderController]
+  imports: [InfraModule],
+  providers: [
+    {
+      provide: IEventQuery,
+      useClass: EventQuery,
+    },
+    EventService,
+  ],
+  controllers: [EventController],
 })
-export class ReaderModule {}
+export class ReaderModule { }
