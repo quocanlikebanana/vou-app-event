@@ -1,0 +1,2192 @@
+{
+	"info": {
+		"_postman_id": "90c7d81a-42ad-4d18-98db-46dda52cebc9",
+		"name": "Event Service",
+		"description": "# Usecase\n\n### User\n\n- Tham gia sự kiện\n    \n- Yêu thích sự kiện\n    \n\n### Partner\n\n- Quản lý sự kiện\n    \n\n### Admin\n\n- Duyệt sự kiện\n    \n\n### (\\*) Cron Job\n\n- Thông báo các sự kiện sắp diễn ra\n    \n\n### (\\*) Common\n\n- Xem truy vấn + chi tiết sự kiện\n    \n\n---\n\n# Error Response\n\n- statusCode:\n    \n    - 400: Request không đúng (lỗi bên gọi)\n        \n    - 404: Không có.\n        \n    - 500: Server sập (lỗi bên xử lý)\n        \n- timestamp: Thời gian xảy ra.\n    \n- path: Địa chỉ gọi tới service.\n    \n- message: Lời nhắn nhủ của service.\n    \n- \\[optional\\] errorCode: Phân biệt giữa nhiều error khác nhau nếu cần.\n    \n- \\[optional\\] Các thông tin mô tả thêm nếu cần.\n    \n\n---",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "32470052-90c7d81a-42ad-4d18-98db-46dda52cebc9"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Like Event",
+					"id": "822a6cd2-eb2d-482d-ac8b-3c709b682733",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "eventId",
+									"value": "{{eventId}}",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "123123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/like",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"like"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "9e36001b-0eb4-47da-ada9-232680ccf567",
+							"name": "Already joined",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+											"type": "text"
+										},
+										{
+											"key": "userId",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/like",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"like"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "6ee66e5b-43dd-4386-a9f3-6d334d49c9e9"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "262da25b-f455-49f4-8e86-5a2d38448643"
+								},
+								{
+									"key": "Content-Length",
+									"value": "110",
+									"uuid": "cfa5a8e9-32e8-456e-90f5-ceb9f9171c53"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6e-lQt0WD2TB6ljJ/vRsfWwGx0CJcM\"",
+									"uuid": "715633b4-0b1f-45b7-9ace-9154991af905"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:21:28 GMT",
+									"uuid": "65661b84-59ab-42f9-a97d-990c5a9d1a89"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "8667f210-9afc-49ab-89f6-1eacdf4040f6"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "d0de2f6a-6a00-4bcd-94ea-6d4561ec8c2d"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"timestamp\": \"2024-12-15T09:21:28.626Z\",\n    \"path\": \"/like\",\n    \"message\": \"User already joined event\"\n}"
+						},
+						{
+							"id": "1b794e38-394d-42ea-a64e-26b5fde08c3f",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+											"type": "text"
+										},
+										{
+											"key": "userId",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/like",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"like"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "78f88b7b-1ce9-43eb-bc60-b36f47a7af55"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:22:21 GMT",
+									"uuid": "083626f0-c823-40d1-bdd8-1a34d70a0720"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "5d837914-e64a-43cb-ae29-07ebbfcdc030"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "c9c85a5b-c25c-4df5-998e-b943a5941e9e"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0",
+									"uuid": "112a0063-5b63-4929-9a1e-697e900ed790"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Join Event",
+					"id": "18c4cfb5-a4c3-4c8a-ae19-3ae24c38ae55",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "eventId",
+									"value": "{{eventId}}",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "123123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/join",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"join"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "324b3840-eec4-44b0-acf5-aa7537edfb57",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+											"type": "text"
+										},
+										{
+											"key": "userId",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/join",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"join"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "4d6fe119-70fc-4a41-bca8-386a0f578b62"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:22:47 GMT",
+									"uuid": "1345992b-3036-427a-8e5a-746e3865c0a8"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "aca10238-4810-4c2c-ba41-e7c311488c78"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "1629fc4f-1d14-4ea6-90bd-31e4439ddeae"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0",
+									"uuid": "99e0717d-b09a-496d-a0f0-eb0c402aebe6"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"id": "8fece2e8-663e-4fa4-af1c-2a9745613b6a",
+							"name": "Already joined",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+											"type": "text"
+										},
+										{
+											"key": "userId",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/join",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"join"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "a9ba0549-ef81-4588-855c-0e23a32dbcbf"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "decac617-98d6-46cd-ac84-ea09b9f254e1"
+								},
+								{
+									"key": "Content-Length",
+									"value": "110",
+									"uuid": "59188d5b-fe38-4409-93d6-470afb55e6c3"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6e-sdU6bk+1lu7jfuw7jV4taCEhgjU\"",
+									"uuid": "682f5ec2-25f5-420b-93c7-c72952e63615"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:23:03 GMT",
+									"uuid": "e49a9848-1944-4812-b3b4-a652ba05d72d"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "9dbd9024-3050-428c-9a13-bb63b68c6432"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "8ce05737-68f6-4e88-8477-75d05d5c19a3"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"timestamp\": \"2024-12-15T09:23:03.342Z\",\n    \"path\": \"/join\",\n    \"message\": \"User already joined event\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Unlike Event",
+					"id": "475cf395-e535-4e24-92c7-36cb27b1cd8d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "eventId",
+									"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "123123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/unlike",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"unlike"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "071f339d-cb22-4f36-8d70-6db758e21fd1",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+											"type": "text"
+										},
+										{
+											"key": "userId",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/unlike",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"unlike"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "37367178-6043-41c2-8cda-72a785b8817d"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:22:02 GMT",
+									"uuid": "8a056c79-7308-4676-bae4-6dadcc5fd65a"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "3437b616-c4fe-4e7e-a1d5-201002979b97"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "d60bf08c-ad86-4227-a8cf-4af1d07bc8a8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0",
+									"uuid": "70d4dc0e-263b-4b67-a058-da89bd88f756"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Leave Event",
+					"id": "e6f43564-eab0-45f1-b251-66b43107ee9e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "eventId",
+									"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "123123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/leave",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"leave"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "8bdada7c-ba1c-4874-a15c-8742304c6689",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+											"type": "text"
+										},
+										{
+											"key": "userId",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/leave",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"leave"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "bb03aa8b-5c5c-4876-a98b-c5faf088dd8a"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:23:21 GMT",
+									"uuid": "9cd4aa95-08c4-4615-950b-cf4a91a0f3ec"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "24ff932c-acbc-42ef-afe5-5470fa50f6b8"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "8fb0bea4-e3b3-4aa2-91a7-cfa0f92c9974"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0",
+									"uuid": "a1a0eb18-b76d-4b41-85ab-4ab3de4d809c"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"id": "31296e30-2499-4eda-8237-931ded080090"
+		},
+		{
+			"name": "Partner",
+			"item": [
+				{
+					"name": "Create event",
+					"id": "e1552e94-8292-405d-a3d9-3238625ae900",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Event",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Description",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"value": "/image/123123",
+									"type": "text"
+								},
+								{
+									"key": "startDate",
+									"value": "2025-01-01",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-01-02",
+									"type": "text"
+								},
+								{
+									"key": "turnsPerDay",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "partnerId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/create",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "fd945cb6-9482-4d02-8660-8efc1dfe8ac1",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Event",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Description",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"value": "/image/123123",
+											"type": "text"
+										},
+										{
+											"key": "startDate",
+											"value": "2025-01-01",
+											"type": "text"
+										},
+										{
+											"key": "endDate",
+											"value": "2025-01-02",
+											"type": "text"
+										},
+										{
+											"key": "turnsPerDay",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "partnerId",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/create",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "2f2b7651-3d89-449c-a061-81ce9bb8c705"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "5ab32619-2dd4-4fcb-b73f-0ca3e1eb13ba"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45",
+									"uuid": "3c3209d4-1f32-4a47-9de7-5e3d1b4b9590"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2d-GWaY6gQ8/6zV6Pr4B1gjF4aHCTo\"",
+									"uuid": "4cc10103-6104-4d70-b149-499b34e71bf1"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:24:16 GMT",
+									"uuid": "e980275c-693f-4c48-95ba-5c3de66aca84"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "c2f84e0f-ce0c-4173-9614-78c00cfe2bc5"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "e1dec34f-31ce-4652-bd26-3241a6e1318e"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"2d5f1ce4-ac7e-429c-853c-d7c2258062ec\"\n}"
+						},
+						{
+							"id": "c671b014-6278-4535-b5db-298b72a16ddc",
+							"name": "Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Event",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Description",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"value": "/image/123123",
+											"type": "text"
+										},
+										{
+											"key": "startDate",
+											"value": "2024-01-01",
+											"type": "text"
+										},
+										{
+											"key": "endDate",
+											"value": "2025-01-02",
+											"type": "text"
+										},
+										{
+											"key": "turnsPerDay",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "partnerId",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/create",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"create"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "2761bd87-b7cb-4ab9-aefa-96fc9afddbfc"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "9fed206c-c1c7-41fe-8ba3-d9788c3e85a6"
+								},
+								{
+									"key": "Content-Length",
+									"value": "119",
+									"uuid": "5bcd7b94-ddb1-4671-9d79-22778de47413"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"77-lGPj5K/DHOMT2kECli2bfWl3/SY\"",
+									"uuid": "64ed95ef-c7d5-4ac3-8a86-5c41cb4c704b"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:24:37 GMT",
+									"uuid": "bf0ecd78-85f6-449c-9459-c9c47ec8091d"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "824ff893-f46d-4eea-b708-cc899d502e04"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "4e41a1c5-24ad-4ebd-b83a-5dd7ca202d02"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"timestamp\": \"2024-12-15T09:24:37.096Z\",\n    \"path\": \"/create\",\n    \"message\": \"Start date must be in the future\"\n}"
+						},
+						{
+							"id": "5edfd528-c049-47a0-89c9-3d4d1600b1fb",
+							"name": "Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "Event",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Description",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"value": "/image/123123",
+											"type": "text"
+										},
+										{
+											"key": "startDate",
+											"value": "2025-02-01",
+											"type": "text"
+										},
+										{
+											"key": "endDate",
+											"value": "2025-01-02",
+											"type": "text"
+										},
+										{
+											"key": "turnsPerDay",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "partnerId",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/create",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"create"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "27f3d4b9-e939-4e9c-8cf5-494a463538a1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "2ed86975-da34-48a1-95e8-ffdbb29da92f"
+								},
+								{
+									"key": "Content-Length",
+									"value": "121",
+									"uuid": "d3bfea67-1291-4664-b9e4-bbbde2b79c44"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"79-dy2srvKfuoOE3Nkj+Aj/BdigalM\"",
+									"uuid": "b69c427b-efaa-4ce0-9a99-b12b81e25a02"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:26:10 GMT",
+									"uuid": "f4a8764c-21ee-47db-b584-b764404a18de"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "0884f0d3-c03d-446a-a081-23cf355942f4"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "9ef7512d-48ec-4912-979d-fc48b0a5d8cb"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"timestamp\": \"2024-12-15T09:26:10.266Z\",\n    \"path\": \"/create\",\n    \"message\": \"Start date must be before end date\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update event",
+					"id": "e21a85a3-5c4e-4947-b04d-7ed8ca0a41d1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id",
+									"value": "2d5f1ce4-ac7e-429c-853c-d7c2258062ec",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Event Updated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/update",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "b8c39c20-0c47-4eeb-b1f8-d9414bc9eebd",
+							"name": "Not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "id",
+											"value": "0616c471-a212-437f-9635-9243d35c4066",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Event Updated",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/update",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"update"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "32cb7c2c-5632-428d-8e8f-d65896225429"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "80b6be5e-1e81-4a6d-98c8-d2c2e53dc83c"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102",
+									"uuid": "54fc0c9b-7597-4a96-a4e4-a140829de485"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"66-COXesWsBiCYAcEjTAbj9Ec2YxaQ\"",
+									"uuid": "87ee7e95-bded-4457-a424-e340efb504c5"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:26:49 GMT",
+									"uuid": "b87154f6-bd95-42c5-9f31-f61eb830545e"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "26be674c-0362-4d40-bcfb-e87d61194535"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "73f846ec-c58e-4395-94d3-71face9ca6ae"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"timestamp\": \"2024-12-15T09:26:49.447Z\",\n    \"path\": \"/update\",\n    \"message\": \"Event not found\"\n}"
+						},
+						{
+							"id": "6acd532b-95b3-43eb-a444-ab9ff2f481ee",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "id",
+											"value": "2d5f1ce4-ac7e-429c-853c-d7c2258062ec",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "Event Updated",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/update",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"update"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "eeb4e02c-9128-425d-9984-85bf2d0c52be"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:27:22 GMT",
+									"uuid": "edd807f0-577c-4749-b040-b3309948ea16"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "023fc1e0-9c8f-4612-a77a-21e7d12ed3b4"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "b2f91665-7b18-45de-9d9b-35af071c9030"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0",
+									"uuid": "bc7bfd1a-abbd-404e-bb08-76b650e4cc5f"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Delete event",
+					"id": "f52a46e2-229a-48a5-a277-08b5dca2e519",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "eventId",
+									"value": "2d5f1ce4-ac7e-429c-853c-d7c2258062ec",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/delete",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"delete"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "a5c21719-9432-4d1a-ac0f-f0bca0548083",
+							"name": "Not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "0616c471-a212-437f-9635-9243d35c4066",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "localhost:3000/delete",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"delete"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "5f32931c-c6c5-4e82-8184-e0ec81d10738"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "c0ede248-1b0a-4eb4-85a1-ffe0f76d41a2"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102",
+									"uuid": "39fe5818-6dd3-4180-9aa4-f0e8a847af93"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"66-koi35qTo7APvHDBPg5CPp73iCrE\"",
+									"uuid": "f0cd2276-c0a4-4e39-ad33-2716a83cb7fd"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:29:19 GMT",
+									"uuid": "b86e1691-5d50-4821-ad55-e27715546940"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "926bc8a6-b05d-4942-bef2-45a2a538a187"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "9a1d02c0-f6bf-493c-8d57-af703de89e53"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"timestamp\": \"2024-12-15T09:29:19.252Z\",\n    \"path\": \"/delete\",\n    \"message\": \"Event not found\"\n}"
+						},
+						{
+							"id": "d119c236-8c54-43a7-91e4-a8b4b0edf9a4",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "2d5f1ce4-ac7e-429c-853c-d7c2258062ec",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/delete",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"delete"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "d1f070ad-6c9c-4377-b78b-452e8ce9b138"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:30:17 GMT",
+									"uuid": "f3f396bb-4300-4584-98c4-cb9343ae3a76"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "6d4eb61f-efb5-4ff3-9cbd-c0a25c2fe37e"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "ee5d33b0-c650-4831-bdb5-e3c0d6901bc6"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0",
+									"uuid": "577f7cb5-4b4d-4df5-8210-14d00e79ab12"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"id": "2e8769d4-139a-49f2-9465-86574e5f51e1"
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Approve event",
+					"id": "6e100f58-f75b-4b10-87a3-093abacf9e36",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "eventId",
+									"value": "08ff146d-daa2-4b3c-8302-4c5fda767242",
+									"type": "text"
+								},
+								{
+									"key": "isApproved",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/validate",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"validate"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "eeb0ae26-6421-441b-b606-0022efc40c36",
+							"name": "Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+											"type": "text"
+										},
+										{
+											"key": "isApproved",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/validate",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"validate"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "f14f0850-5ff6-441d-adcb-b1c3732ebd34"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "7707796d-65c5-431d-9ead-f342330976de"
+								},
+								{
+									"key": "Content-Length",
+									"value": "134",
+									"uuid": "fd9aedfa-d614-4272-b2be-cb5207cf4858"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"86-9E515iui1uWCgznb/lvoNInQFFM\"",
+									"uuid": "a3a24c7e-ba33-42b5-b726-47750e9fe53e"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:30:44 GMT",
+									"uuid": "57aabf0f-a515-4798-9d5a-fae2ea0ffc50"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "df17deb8-515c-4362-9c77-b029392a7f34"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "b0c81b30-287c-46e7-ae08-d694187f15d3"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"timestamp\": \"2024-12-15T09:30:44.475Z\",\n    \"path\": \"/validate\",\n    \"message\": \"Cannot approve event that is already approved\"\n}"
+						},
+						{
+							"id": "3410d327-3c02-4c1e-bd93-37cc7166bdb3",
+							"name": "Not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "2d5f1ce4-ac7e-429c-853c-d7c22582ec",
+											"type": "text"
+										},
+										{
+											"key": "isApproved",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/validate",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"validate"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "dc740baf-1a19-45ca-8ba3-a3a75413a294"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "6be959c1-f85a-4762-83c0-7dbe9bc7f789"
+								},
+								{
+									"key": "Content-Length",
+									"value": "104",
+									"uuid": "f4bcb3dd-1f56-42f0-ae59-764fffa2860a"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"68-tRFehMttNgQl+Z40AzuQ7QjBzOc\"",
+									"uuid": "dfd9b6be-b895-450a-96a8-ab4730cae9ad"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:31:39 GMT",
+									"uuid": "90267b54-3d97-4e9e-b78b-4dca35d7bc88"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "473387ce-44e3-46f4-b8ec-ad297f965544"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "64ae19df-5ca7-4298-92a8-967bf5914be9"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"timestamp\": \"2024-12-15T09:31:39.146Z\",\n    \"path\": \"/validate\",\n    \"message\": \"Event not found\"\n}"
+						},
+						{
+							"id": "c80de070-279b-489e-b53f-b062336b3a40",
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "eventId",
+											"value": "08ff146d-daa2-4b3c-8302-4c5fda767242",
+											"type": "text"
+										},
+										{
+											"key": "isApproved",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/validate",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"validate"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "b6317204-7966-4542-997d-1a1ee9c1c49b"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 15 Dec 2024 09:32:19 GMT",
+									"uuid": "074f268c-0d53-4d40-b940-0cdd246ae52c"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "b2a97536-a873-441a-b497-6a07ad8b51c7"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "14402d49-c0a9-4592-a2a9-1a2d56856eec"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0",
+									"uuid": "7947c152-acbe-499a-bd8a-58d9a6e3b367"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"id": "af8478e9-d6d7-46b8-b6f9-86f6088300a0"
+		},
+		{
+			"name": "Query",
+			"item": [
+				{
+					"name": "All events",
+					"id": "2e469f1b-b90f-4edb-b85b-a2bc7a2c0209",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/event/all",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"event",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "c1c52c4e-ea9e-421e-a932-0ef076f6a527",
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}:{{port}}/event/all",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"event",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "73c1808f-df89-4842-9b92-e61f4d399748"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "56cb7df2-7458-44ee-9079-cbec1410c1a3"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3104",
+									"uuid": "44b6ad45-89ac-4378-a45f-970344f846f4"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c20-EiBP1apPA/hOvn6ALev0sDbdLks\"",
+									"uuid": "f3e15627-4d5a-404d-9915-4a215a9424d9"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 16 Dec 2024 17:20:49 GMT",
+									"uuid": "c8c71326-cb73-4573-b987-30a2325317dd"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "e87e1b6f-4e10-4864-9903-acd8df83a41d"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "16de6c74-b1f9-4c4d-aa82-f2c8e526806b"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"a30f7726-369c-43b4-bc68-072087297d4f\",\n        \"name\": \"Angular Workshop\",\n        \"description\": \"A comprehensive workshop on Angular framework, covering all the basics and advanced topics.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-18T02:05:07.827Z\",\n        \"turnsPerDay\": 2,\n        \"partnerId\": \"ea1df4a0-164d-454e-b920-a3e666d56502\",\n        \"eventStatus\": \"PENDING\"\n    },\n    {\n        \"id\": \"ab993342-3691-4861-883a-be07dfb0b22f\",\n        \"name\": \"Vue.js Meetup\",\n        \"description\": \"A meetup for Vue.js enthusiasts to share knowledge and network with fellow developers.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-19T02:05:07.827Z\",\n        \"turnsPerDay\": 1,\n        \"partnerId\": \"3c329d3b-a3f0-414d-89f4-0eac38926380\",\n        \"eventStatus\": \"PENDING\"\n    },\n    {\n        \"id\": \"6d5568eb-300d-48f6-bbe4-5147f511b67d\",\n        \"name\": \"Node.js Bootcamp\",\n        \"description\": \"An intensive bootcamp to learn Node.js from scratch, including building and deploying applications.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-20T02:05:07.827Z\",\n        \"turnsPerDay\": 2,\n        \"partnerId\": \"5662d5a9-7c69-48e5-887d-3bad8811d158\",\n        \"eventStatus\": \"PENDING\"\n    },\n    {\n        \"id\": \"4d718826-d120-4cc4-a29a-f77be5e83711\",\n        \"name\": \"DevOps Summit\",\n        \"description\": \"A summit focused on DevOps practices, tools, and methodologies to improve software delivery.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-22T02:05:07.827Z\",\n        \"turnsPerDay\": 3,\n        \"partnerId\": \"cf2a015f-c6f5-40c3-af7c-fbec923377b8\",\n        \"eventStatus\": \"PENDING\"\n    },\n    {\n        \"id\": \"01ca678b-027f-4e7e-9b0b-0f49d8047e42\",\n        \"name\": \"React Conference\",\n        \"description\": \"Join us for a full-day conference on React, featuring talks from core team members and community experts.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-21T02:05:07.827Z\",\n        \"turnsPerDay\": 3,\n        \"partnerId\": \"3365d06b-bb40-45ab-9b16-b08bb093804d\",\n        \"eventStatus\": \"UPCOMING\"\n    },\n    {\n        \"id\": \"08ff146d-daa2-4b3c-8302-4c5fda767242\",\n        \"name\": \"Spring Boot\",\n        \"description\": \"Spring Boot is a project built on the top of the Spring framework. It provides a simpler and faster way to set up, configure, and run both simple and web-based applications.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-17T02:05:07.827Z\",\n        \"turnsPerDay\": 1,\n        \"partnerId\": \"118e851d-4c30-44a1-a76d-08001cf061ec\",\n        \"eventStatus\": \"UPCOMING\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Query events",
+					"id": "7e3a53e4-64b5-4e23-b448-d5ddc78ea75f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"searchName\": \"\",\r\n    \"sorts\": [],\r\n    \"userStatusFilter\": [],\r\n    \"statusFilter\": [\"PENDING\", \"APPROVED\"],\r\n    \"page\": \"1\",\r\n    \"perPage\": \"6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/event/query",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"event",
+								"query"
+							]
+						},
+						"description": "- userStatusFilter (array): Filter event cho phía user (tất cả event trả về đều đã được duyệt).\n    \n    - \"UPCOMING\": Sắp diễn ra\n        \n    - \"STARTING\": Đang diễn ra\n        \n    - \"ENDED\": Đã kết thúc\n        \n- statusFilter (array): Filter event cho phía partner theo status: \"PENDING\", \"APPROVED\", \"REJECTED\".\n    \n- sorts (array): Các tiêu chí sort và cách sắp xếp, có thể sắp theo nhiều tiêu chí cùng lúc (array). Là array của object: \\[{ field: ..., isAsc:... }, ...\\]\n    \n    - field: Trường sort: \"startDate\", \"endDate\", \"name\".\n        \n    - isAsc: boolean\n        \n- searchName: Từ khóa để search theo tên."
+					},
+					"response": [
+						{
+							"id": "7c129cb4-4379-45fa-b146-2a5506862145",
+							"name": "Query event",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"searchName\": \"\",\r\n    \"sorts\": [\r\n\t\t\t{\r\n\t\t\t\t\"field\": \"name\",\r\n\t\t\t\t\"isAsc\": true\r\n\t\t\t}\r\n\t\t],\r\n    \"userStatusFilter\": [],\r\n    \"statusFilter\": [\"PENDING\", \"APPROVED\"],\r\n    \"page\": 1,\r\n    \"perPage\": 6\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}:{{port}}/event/query",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"event",
+										"query"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "1f54708f-d346-4205-86ef-549cec448d5a"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "937ce608-8de6-4f84-bc9b-9f93adb5bb95"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3104",
+									"uuid": "0e00b9f7-964c-4b6e-81a3-5d6aade64bee"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c20-vpl9PqTSaZ5zTDHA25eNQcjaUlM\"",
+									"uuid": "6414b935-ed23-46ec-80cf-1c013c71e1df"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Dec 2024 04:24:33 GMT",
+									"uuid": "feffb5d3-28c4-4deb-b425-e37639d55f97"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "6b591359-9bdb-4990-95b9-5b8564ab8204"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "38ce141b-ecc3-4e9c-b3c8-e9887c57e286"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"a30f7726-369c-43b4-bc68-072087297d4f\",\n        \"name\": \"Angular Workshop\",\n        \"description\": \"A comprehensive workshop on Angular framework, covering all the basics and advanced topics.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-18T02:05:07.827Z\",\n        \"turnsPerDay\": 2,\n        \"partnerId\": \"ea1df4a0-164d-454e-b920-a3e666d56502\",\n        \"eventStatus\": \"PENDING\"\n    },\n    {\n        \"id\": \"4d718826-d120-4cc4-a29a-f77be5e83711\",\n        \"name\": \"DevOps Summit\",\n        \"description\": \"A summit focused on DevOps practices, tools, and methodologies to improve software delivery.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-22T02:05:07.827Z\",\n        \"turnsPerDay\": 3,\n        \"partnerId\": \"cf2a015f-c6f5-40c3-af7c-fbec923377b8\",\n        \"eventStatus\": \"PENDING\"\n    },\n    {\n        \"id\": \"6d5568eb-300d-48f6-bbe4-5147f511b67d\",\n        \"name\": \"Node.js Bootcamp\",\n        \"description\": \"An intensive bootcamp to learn Node.js from scratch, including building and deploying applications.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-20T02:05:07.827Z\",\n        \"turnsPerDay\": 2,\n        \"partnerId\": \"5662d5a9-7c69-48e5-887d-3bad8811d158\",\n        \"eventStatus\": \"PENDING\"\n    },\n    {\n        \"id\": \"01ca678b-027f-4e7e-9b0b-0f49d8047e42\",\n        \"name\": \"React Conference\",\n        \"description\": \"Join us for a full-day conference on React, featuring talks from core team members and community experts.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-21T02:05:07.827Z\",\n        \"turnsPerDay\": 3,\n        \"partnerId\": \"3365d06b-bb40-45ab-9b16-b08bb093804d\",\n        \"eventStatus\": \"UPCOMING\"\n    },\n    {\n        \"id\": \"08ff146d-daa2-4b3c-8302-4c5fda767242\",\n        \"name\": \"Spring Boot\",\n        \"description\": \"Spring Boot is a project built on the top of the Spring framework. It provides a simpler and faster way to set up, configure, and run both simple and web-based applications.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-17T02:05:07.827Z\",\n        \"turnsPerDay\": 1,\n        \"partnerId\": \"118e851d-4c30-44a1-a76d-08001cf061ec\",\n        \"eventStatus\": \"UPCOMING\"\n    },\n    {\n        \"id\": \"ab993342-3691-4861-883a-be07dfb0b22f\",\n        \"name\": \"Vue.js Meetup\",\n        \"description\": \"A meetup for Vue.js enthusiasts to share knowledge and network with fellow developers.\",\n        \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n        \"startDate\": \"2024-12-16T02:05:07.827Z\",\n        \"endDate\": \"2024-12-19T02:05:07.827Z\",\n        \"turnsPerDay\": 1,\n        \"partnerId\": \"3c329d3b-a3f0-414d-89f4-0eac38926380\",\n        \"eventStatus\": \"PENDING\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Info event",
+					"id": "0d7f3935-7d73-4460-95ba-299d2affdf76",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/event/{{eventId}}",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"event",
+								"{{eventId}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "7d2c0347-cb37-48a4-9b43-708913fd0b53",
+							"name": "Sucess",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}:{{port}}/event/01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"event",
+										"01ca678b-027f-4e7e-9b0b-0f49d8047e42"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "e599dda0-f50d-4121-a3cb-eede26569d8f"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "d6fac04c-54cd-4706-9cfd-61d3eec534c2"
+								},
+								{
+									"key": "Content-Length",
+									"value": "516",
+									"uuid": "fc3b5720-7c0c-4e4b-b82d-1eb8ce91eb5f"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"204-Vfi9scWkPdro9zhEGrErbhk4QiE\"",
+									"uuid": "8eeb00ef-0d3c-47fe-a0ec-e43f0c079531"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Dec 2024 04:29:29 GMT",
+									"uuid": "8e491b76-eb1b-4e6c-abae-98157eacec04"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "ac43b9e3-306e-4cf5-8c0b-dc0cd880c6a9"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "4a03dc17-15a2-4ab5-bab5-662876a12d7b"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"01ca678b-027f-4e7e-9b0b-0f49d8047e42\",\n    \"name\": \"React Conference\",\n    \"description\": \"Join us for a full-day conference on React, featuring talks from core team members and community experts.\",\n    \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n    \"startDate\": \"2024-12-16T02:05:07.827Z\",\n    \"endDate\": \"2024-12-21T02:05:07.827Z\",\n    \"turnsPerDay\": 3,\n    \"partnerId\": \"3365d06b-bb40-45ab-9b16-b08bb093804d\",\n    \"eventStatus\": \"UPCOMING\"\n}"
+						},
+						{
+							"id": "aa8ae3c3-2cb0-45d9-96d8-58b65faf8bd9",
+							"name": "Not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}:{{port}}/event/1",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"event",
+										"1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "52a75eb0-d90a-4ee1-832e-24ec77a97432"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "32c4bf23-3409-4fed-99b6-8dfce173ec4f"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113",
+									"uuid": "45cd0954-9d07-4d76-8b13-8c85f23a7db0"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"71-wDbKoozvVCepsI1Sulq5BN2Vwgc\"",
+									"uuid": "c43915cc-064f-4ce7-bcb8-f34150f251ca"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Dec 2024 04:43:08 GMT",
+									"uuid": "a135a8b3-b003-47a4-908b-a4653bae0769"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "59d1b01b-d17e-4a3a-8b08-2f6d3612a5dc"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "239b251d-7116-415b-9e23-2d5373a1cb9a"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"timestamp\": \"2024-12-17T04:43:08.616Z\",\n    \"path\": \"/event/1\",\n    \"message\": \"Event with id 1 not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Small info event",
+					"id": "fe5643f2-2242-40c6-9585-0ab75579dcca",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/event/{{eventId}}/small",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"event",
+								"{{eventId}}",
+								"small"
+							]
+						},
+						"description": "Chỉ hiển thị thông tin quan trọng. Dùng để kết hợp với các object khác, giảm thông."
+					},
+					"response": [
+						{
+							"id": "32062ad6-d7be-42f0-ae92-c49b76262fce",
+							"name": "Sucess",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}:{{port}}/event/01ca678b-027f-4e7e-9b0b-0f49d8047e42/small",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"event",
+										"01ca678b-027f-4e7e-9b0b-0f49d8047e42",
+										"small"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "03845e53-85dc-48f9-a7be-95bece973fb1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "0a0f0e79-469e-4af9-b359-869b81942025"
+								},
+								{
+									"key": "Content-Length",
+									"value": "327",
+									"uuid": "ad785715-c748-4d1c-91c3-0d79972b5e86"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"147-tiIYI0kA6PXMRRurRE4FK4kOC48\"",
+									"uuid": "fcfe99d3-1552-4123-a2a4-ba54dfd260bc"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Dec 2024 04:31:40 GMT",
+									"uuid": "5745a36f-9219-4bca-bef0-90725ea113f7"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "99fee292-eaf2-4140-8c29-329e55831245"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "3bb69b49-bf9b-4600-903f-66e70f790088"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"01ca678b-027f-4e7e-9b0b-0f49d8047e42\",\n    \"name\": \"React Conference\",\n    \"image\": \"https://media.istockphoto.com/id/1973365581/vector/sample-ink-rubber-stamp.jpg?s=612x612&w=0&k=20&c=_m6hNbFtLdulg3LK5LRjJiH6boCb_gcxPvRLytIz0Ws=\",\n    \"eventStatus\": \"UPCOMING\",\n    \"startDate\": \"2024-12-16T02:05:07.827Z\",\n    \"endDate\": \"2024-12-21T02:05:07.827Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Users joined event",
+					"id": "d45000ed-dc66-4724-a622-c741d85a813f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/event/{{eventId}}/users/joined",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"event",
+								"{{eventId}}",
+								"users",
+								"joined"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "01467300-0998-4ad7-9767-35280005619e",
+							"name": "Sucess",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}:{{port}}/event/{{eventId}}/users/joined",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"event",
+										"{{eventId}}",
+										"users",
+										"joined"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "f0ddcb3b-bacf-479e-8f78-8511cb672db0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "8840e706-ed86-4b35-80c1-ccc795915c65"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43",
+									"uuid": "7bd39b64-24fc-409c-a3b8-dddefe73a3ee"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b-8bNODrg2670HFy/4V7+DRzlupvY\"",
+									"uuid": "984e4aef-d189-4404-bbc0-fd7e070419a1"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Dec 2024 04:49:48 GMT",
+									"uuid": "83746a4c-df65-4c9a-a475-c05407f0e550"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "f4d4337b-3c81-4fbb-8679-4741daf511d4"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "7a43254b-cbae-4515-b581-d3054a2d52c1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"userJoin\": [\n        {\n            \"userId\": \"123123\",\n            \"turn\": 3\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Users liked event",
+					"id": "c734fbeb-0cef-4eba-b4ae-b45b9dafc3c5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/event/{{eventId}}/users/liked",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"event",
+								"{{eventId}}",
+								"users",
+								"liked"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "fbdd985b-008d-42f2-a755-bcb53671562d",
+							"name": "Sucess",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}:{{port}}/event/{{eventId}}/users/liked",
+									"host": [
+										"{{host}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"event",
+										"{{eventId}}",
+										"users",
+										"liked"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "3eda2b0c-be47-42fa-9f77-722d7f73e6c7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "d723c140-b966-43cb-bf4d-3e6fd54b4557"
+								},
+								{
+									"key": "Content-Length",
+									"value": "35",
+									"uuid": "04f3a811-231f-4d9e-9d7b-d7ee08b75578"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"23-z7XHvmJTHIxvgozKXPAiIaGA0DY\"",
+									"uuid": "ee4e2c09-8ffb-4bc2-8049-9aaa776e853d"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 17 Dec 2024 04:50:58 GMT",
+									"uuid": "89a26ca3-6f53-4726-8cae-85762f0cd9fe"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "b52f30ca-a85a-4ae4-9ab0-ea15fd3d4a6b"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "103fdc55-0f4c-44ae-b50b-fff92b156c07"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"userLiked\": [\n        {\n            \"userId\": \"123123\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"id": "298d7af6-9bee-4af7-ace7-1476b6ba2b1c"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a726c5fc-2fa1-45a8-8096-5835e9abfa09",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ebafc2a3-ec29-4188-b64d-93414fb04dfe",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8b372c46-389f-4237-ba66-dd48dd2f017c",
+			"key": "port",
+			"value": "3000",
+			"type": "string"
+		},
+		{
+			"id": "bc6a3b4f-aa8d-4e6c-942f-cf4c9eabaafb",
+			"key": "eventId",
+			"value": "01ca678b-027f-4e7e-9b0b-0f49d8047e42"
+		}
+	]
+}
