@@ -1,5 +1,6 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Prisma, PrismaClient } from '@prisma/client';
+import { env } from 'process';
 
 function logQueryMiddleware(): Prisma.Middleware {
     return async (params, next) => {
@@ -17,6 +18,16 @@ function logQueryMiddleware(): Prisma.Middleware {
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+    constructor() {
+        super({
+            datasources: {
+                db: {
+                    url: process.env.DATABASE_URL
+                }
+            }
+        });
+    }
+
     async onModuleInit() {
         await this.$connect();
     }
