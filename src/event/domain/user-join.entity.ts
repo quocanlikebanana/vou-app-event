@@ -23,6 +23,9 @@ export class UserJoinEntity extends Entity<UserJoinProps> {
     }
 
     public addTurn(turn: number): void {
+        if (this.props.turn + turn < 0) {
+            throw new DomainError("Not enough turn");
+        }
         this.props.turn = this.props.turn + turn;
     }
 }

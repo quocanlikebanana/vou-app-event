@@ -29,6 +29,7 @@ model Event {
   endDate     DateTime
   turnsPerDay Int
   partnerId   String
+  createdAt   DateTime    @default(now())
 
   User_Join_Event User_Join_Event[]
   User_Like_Event User_Like_Event[]

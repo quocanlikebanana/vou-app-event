@@ -54,3 +54,13 @@ export class EventQueryParam {
     @Min(1)
     perPage: number;
 }
+
+export class EventQueryParamFromUser extends EventQueryParam {
+    @IsString()
+    userId: string;
+}
+
+export class EventQueryParamFromPartner extends EventQueryParam {
+    @IsString()
+    partnerId: string;
+}

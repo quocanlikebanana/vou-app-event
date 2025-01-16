@@ -3,7 +3,7 @@ import { EventService } from './event.service';
 import { EventInfoPresenter, EventSmallInfoPresenter, UsersJoinedEventPresenter, UsersLikedEventPresenter } from './dto/event.presenter';
 import { EventQueryParam } from './dto/event.param';
 
-@Controller('event')
+@Controller('/unauth/event')
 export class EventController {
     constructor(
         private readonly eventService: EventService
@@ -16,7 +16,6 @@ export class EventController {
 
     @Post('query')
     async getQuery(@Body() query: EventQueryParam): Promise<EventInfoPresenter[]> {
-        console.log(query);
         return await this.eventService.getQuery(query);
     }
 
@@ -32,8 +31,6 @@ export class EventController {
 
     @Get(':id/users/joined')
     async getUsersJoined(@Param('id') id: string): Promise<UsersJoinedEventPresenter> {
-        console.log('joined');
-
         return await this.eventService.getUsersJoined(id);
     }
 

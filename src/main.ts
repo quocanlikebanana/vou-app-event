@@ -32,6 +32,8 @@ async function bootstrap() {
     },
   }));
 
+  app.enableCors({ origin: '*' });
+
   const port = process.env.PORT ?? 3000;
   const host = process.env.HOST ?? 'localhost';
   await app.listen(port);

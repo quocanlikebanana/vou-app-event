@@ -15,6 +15,10 @@ export type EventInfoResult = EventSmallInfoResult & {
     partnerId: string;
 };
 
+export type EventInfoUserResult = EventInfoResult & {
+    hasLiked: boolean;
+};
+
 export type UsersJoinedEventResult = {
     userJoin: {
         userId: string;
@@ -26,4 +30,10 @@ export type UsersLikedEventResult = {
     userLiked: {
         userId: string;
     }[];
+}
+
+export type UserInfoInEventResult = {
+    userId: string;
+    turn: number;
+    hasLiked: boolean;
 }

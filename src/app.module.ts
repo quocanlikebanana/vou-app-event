@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import configuration, { ConfigurationService } from './utils/configuration';
 import { ScheduleModule } from '@nestjs/schedule';
 import { LoggerMiddleware } from './utils/middlewares/logger.mdw';
+import { StatsModule } from './stats/stats.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { LoggerMiddleware } from './utils/middlewares/logger.mdw';
       load: [configuration],
     }),
     ScheduleModule.forRoot(),
+    StatsModule,
   ],
   controllers: [AppController],
   providers: [

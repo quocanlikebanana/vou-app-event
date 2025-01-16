@@ -10,13 +10,13 @@ function evalEventStatusMessage(eventInfo: { eventStatus: EventStatus, startDate
     let eventStatus = eventInfo.eventStatus.toString();
     if (eventInfo.eventStatus === EventStatus.APPROVED) {
         const now = new Date();
-        if (eventInfo.startDate < now) {
+        if (eventInfo.startDate >= now) {
             eventStatus = "UPCOMING";
         }
-        else if (eventInfo.startDate >= now && eventInfo.endDate <= now) {
+        else if (eventInfo.startDate < now && eventInfo.endDate > now) {
             eventStatus = "STARTED";
         }
-        else if (eventInfo.endDate > now) {
+        else if (eventInfo.endDate <= now) {
             eventStatus = "ENDED";
         }
         else {
@@ -49,6 +49,11 @@ export class EventService {
         return presenter;
     }
 
+    async getQueryFromUser(query: EventQueryParam, userId: string) {
+        const res = await this.eventQuery.getQueryFromUser(query, userId);
+        return res;
+    }
+
     async getInfo(id: string): Promise<EventInfoPresenter> {
         const res = await this.eventQuery.getInfo(id);
         const presenter: EventInfoPresenter = transformEventInfo(res);
@@ -67,5 +72,13 @@ export class EventService {
 
     async getUsersLiked(id: string): Promise<UsersLikedEventPresenter> {
         return await this.eventQuery.getUsersLiked(id);
+    }
+
+    async getUserInfoInEvent(id: string, userId: string) {
+        return await this.eventQuery.getUserInfoInEvent(id, userId);
+    }
+
+    async getEventOfPartner(partnerId: string) {
+        return await this.eventQuery.getEventOfPartner(partnerId);
     }
 }

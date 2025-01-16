@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CreateNewEventParam, JoinEventParam, LeaveEventParam, LikeEventParam, UnlikeEventParam, UpdateEventInfoParam, ValidateEventApprovalParam as ValidateEventApprovalParam } from "../param/event.param";
+import { CreateNewEventParam, GiveTurnParam, JoinEventParam, LeaveEventParam, LikeEventParam, ReduceTurnParam, UnlikeEventParam, UpdateEventInfoParam, ValidateEventApprovalParam as ValidateEventApprovalParam } from "../param/event.param";
 import { EventAggregate } from '../domain/event.agg';
 import IUnitOfWork from 'src/common/unit-of-work.i';
 import { EventStatus } from 'src/common/type';
 import { UserJoinEntity } from '../domain/user-join.entity';
 import { UserLikeEntity } from '../domain/user-like.entity';
 import { NotificationService } from './notification.service';
+import { DomainError } from 'src/common/domain.error';
 
 @Injectable()
 export class EventService {
@@ -33,11 +34,7 @@ export class EventService {
             return await uow.eventRepository.create(eventAgg);
         });
         await this.notificationService.boardcastNotificationToAdmins(
-            "Partner has created new event",
-            {
-                eventId: res.id,
-                partnerId: event.partnerId
-            }
+            "Partner has created new event"
         );
         return res;
     }
@@ -48,11 +45,7 @@ export class EventService {
         eventAgg.updateInfo(updateDto);
         await this.unitOfWork.eventRepository.updateInfo(eventAgg);
         await this.notificationService.boardcastNotificationToAdmins(
-            "Partner has updated event info",
-            {
-                eventId: id,
-                partnerId: event.partnerId
-            }
+            "Partner has updated event info"
         );
     }
 
@@ -67,11 +60,7 @@ export class EventService {
         await this.unitOfWork.eventRepository.updateInfo(eventAgg);
         await this.notificationService.sendNotificationToPartner(
             eventAgg.props.partnerId,
-            isApproved ? "Your event has been approved" : "Your event has been rejected",
-            {
-                eventId,
-                partnerId: eventAgg.props.partnerId,
-            }
+            `Your event ${eventAgg.props.name} has been` + isApproved ? " approved" : "rejected",
         )
     }
 
@@ -99,5 +88,33 @@ export class EventService {
 
     async unlikeEvent(param: UnlikeEventParam): Promise<void> {
         await this.unitOfWork.eventRepository.deleteUserLike(param.userId, param.eventId);
+    }
+
+    async reduceTurn(param: ReduceTurnParam): Promise<void> {
+        const event = await this.unitOfWork.eventRepository.getById(param.eventId);
+        const userJoin = event.props.usersJoin.find(u => u.props.userId === param.userId);
+        if (userJoin == null) {
+            throw new Error("User not found in event");
+        }
+        userJoin.addTurn(param.turn * -1);
+        await this.unitOfWork.eventRepository.updateUserJoinTurn(event);
+    }
+
+    async giveTurn(param: GiveTurnParam): Promise<void> {
+        const event = await this.unitOfWork.eventRepository.getById(param.eventId);
+        if (event == null) {
+            throw new DomainError("Event not found");
+        }
+        const userGive = event.props.usersJoin.find(u => u.props.userId === param.userId);
+        if (userGive == null) {
+            throw new DomainError("User give not found in event");
+        }
+        const userTake = event.props.usersJoin.find(u => u.props.userId === param.userTakeId);
+        if (userTake == null) {
+            throw new DomainError("User take not found in event");
+        }
+        userGive.addTurn(param.turn * -1);
+        userTake.addTurn(param.turn);
+        await this.unitOfWork.eventRepository.updateUserJoinTurn(event);
     }
 }

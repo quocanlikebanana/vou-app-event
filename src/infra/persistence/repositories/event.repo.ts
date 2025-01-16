@@ -41,7 +41,7 @@ export default class EventRepository implements IEventRepository {
             userId: x.userId,
             eventId: x.eventId,
             turn: x.turn,
-        }));
+        }, x.id));
         const usersLike: UserLikeEntity[] = event.User_Like_Event.map(x => new UserLikeEntity({
             userId: x.userId,
             eventId: x.eventId,
@@ -128,6 +128,7 @@ export default class EventRepository implements IEventRepository {
 
     async updateUserJoinTurn(event: EventAggregate): Promise<void> {
         const usersJoin = event.props.usersJoin;
+        console.log(usersJoin);
         const prismaUsersJoin = usersJoin.map(x => this.prismaService.user_Join_Event.update({
             where: {
                 id: x.id
