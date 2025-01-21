@@ -1,1 +1,0 @@
-export const NOTIFICATION_URL = process.env.NOTIFICATION_URL ?? 'http://localhost:3100';

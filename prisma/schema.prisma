@@ -5,63 +5,83 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 enum EventStatus {
-  PENDING
-  APPROVED
-  REJECTED
+    PENDING
+    APPROVED
+    REJECTED
 }
 
 model Event {
-  id          String      @id @default(uuid())
-  name        String
-  description String
-  image       String
-  eventStatus EventStatus
-  startDate   DateTime
-  endDate     DateTime
-  turnsPerDay Int
-  partnerId   String
-  createdAt   DateTime    @default(now())
+    id          String      @id @default(uuid())
+    name        String
+    description String
+    image       String
+    eventStatus EventStatus
+    startDate   DateTime
+    endDate     DateTime
+    partnerId   String
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
 
-  User_Join_Event User_Join_Event[]
-  User_Like_Event User_Like_Event[]
-}
-
-model User_Join_Event {
-  id      String @id @default(uuid())
-  userId  String
-  eventId String
-  turn    Int
-
-  Event Event @relation(fields: [eventId], references: [id])
-
-  @@unique([userId, eventId])
+    User_Like_Event User_Like_Event[]
+    Game_Of_Event   Game_Of_Event[]
 }
 
 model User_Like_Event {
-  id      String @id @default(uuid())
-  userId  String
-  eventId String
+    userId    String
+    eventId   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
-  Event Event @relation(fields: [eventId], references: [id])
+    Event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, eventId])
+    @@id([userId, eventId])
+}
+
+enum GameTypeStatus {
+    ACTIVE
+    MAINTENANCE
+}
+
+model GameType {
+    id        String         @id @default(uuid())
+    name      String
+    guide     String
+    status    GameTypeStatus
+    createdAt DateTime       @default(now())
+    updatedAt DateTime       @updatedAt
+
+    Game_Of_Event Game_Of_Event[]
+}
+
+model Game_Of_Event {
+    id          String   @id @default(uuid())
+    eventId     String
+    gameTypeId  String
+    name        String
+    description String
+    image       String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    Event    Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+    GameType GameType @relation(fields: [gameTypeId], references: [id], onDelete: Cascade)
 }
 
 model StartInOneDay_Event {
-  eventId          String   @id @default(uuid())
-  notificationDate DateTime
+    eventId          String   @id @default(uuid())
+    notificationDate DateTime
 }
 
 model StartNow_Event {
-  eventId          String   @id @default(uuid())
-  notificationDate DateTime
+    eventId          String   @id @default(uuid())
+    notificationDate DateTime
 }
