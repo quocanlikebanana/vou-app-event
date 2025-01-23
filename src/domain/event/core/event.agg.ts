@@ -3,10 +3,11 @@ import { DomainError } from "src/common/error/domain.error";
 import { EventStatusContext } from "../others/event.state-dp";
 import { generateUUID } from "src/common/utils/generator";
 import { removeNullValues } from "src/common/utils/object";
-import { CreateEventDTO, UpdateEventDTO } from "../dto/event.dto";
+import { CreateEventDTO, UpdateEventDTO } from "../others/event.dto";
 import { EventStatus } from "../others/event-status.enum";
-import { GameOfEventValueObject } from "./game-of-event.vo";
+import { GameOfEventEntity } from "./game-of-event.entity";
 import { dateFromNow } from "src/common/utils/date";
+import { EventCreatedDomainEvent } from "../event/event-created.de";
 
 export type EventProps = {
 	name: string;
@@ -17,7 +18,7 @@ export type EventProps = {
 	endDate: Date;
 	partnerId: string;
 
-	gameOfEvents: GameOfEventValueObject[];
+	gameOfEvents: GameOfEventEntity[];
 };
 
 export class EventAggregate extends AggregateRoot<EventProps> {
@@ -39,26 +40,29 @@ export class EventAggregate extends AggregateRoot<EventProps> {
 
 	static create(createEvent: CreateEventDTO): EventAggregate {
 		const id = generateUUID();
-		const gameOfEvents = createEvent.gameOfEvents.map((game) => new GameOfEventValueObject({
+		const gameOfEvents = createEvent.gameOfEvents.map((game) => new GameOfEventEntity({
 			...game,
 			eventId: id,
-		}));
+		}, generateUUID()));
+		const status = EventStatus.PENDING;
 		const newEvent = new EventAggregate(
 			{
 				...createEvent,
 				gameOfEvents,
+				eventStatus: status,
 			}, id);
+		newEvent.addDomainEvent(new EventCreatedDomainEvent(newEvent));
 		return newEvent;
 	}
 
-	updateInfo(event: Partial<UpdateEventDTO>): void {
+	update(event: Partial<UpdateEventDTO>): void {
 		this._eventStatusContext.update();
 		const notNullUpdateProps = removeNullValues(event);
 		const { gameOfEvents, ...rest } = notNullUpdateProps;
-		const newGameOfEvents = gameOfEvents?.map((game) => new GameOfEventValueObject({
+		const newGameOfEvents = gameOfEvents?.map((game) => new GameOfEventEntity({
 			...game,
 			eventId: this.id,
-		}));
+		}, generateUUID()));
 		const newProps = {
 			...this.props,
 			...rest,
@@ -67,7 +71,7 @@ export class EventAggregate extends AggregateRoot<EventProps> {
 		this.props = newProps;
 	}
 
-	validateApproval(isApproved: boolean): void {
+	approve(isApproved: boolean): void {
 		if (isApproved) {
 			this._eventStatusContext.approve();
 		}

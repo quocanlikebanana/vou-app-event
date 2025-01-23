@@ -7,7 +7,7 @@ type GameOfEventCreateDTO = {
 	image: string;
 }
 
-export type CreateEventDTO = Omit<EventProps, "gameOfEvents"> & {
+export type CreateEventDTO = Omit<EventProps, "gameOfEvents" | "eventStatus"> & {
 	gameOfEvents: GameOfEventCreateDTO[];
 };
 

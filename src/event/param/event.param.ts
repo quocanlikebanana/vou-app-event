@@ -3,41 +3,7 @@ import { PartialType } from "@nestjs/mapped-types";
 import { Type } from "class-transformer";
 import { boolean } from "zod";
 
-export class CreateNewEventParam {
-    @IsString()
-    @IsNotEmpty()
-    name: string;
 
-    @IsString()
-    @IsNotEmpty()
-    description: string;
-
-    @IsString()
-    @IsNotEmpty()
-    image: string;
-
-    @IsDate()
-    @Type(() => Date)
-    startDate: Date;
-
-    @IsDate()
-    @Type(() => Date)
-    endDate: Date;
-
-    @IsNumber()
-    @Type(() => Number)
-    turnsPerDay: number;
-
-    @IsString()
-    @IsNotEmpty()
-    partnerId: string;
-}
-
-export class UpdateEventInfoParam extends PartialType(CreateNewEventParam) {
-    @IsString()
-    @IsNotEmpty()
-    id: string;
-}
 
 export class ValidateEventApprovalParam {
     @IsString()

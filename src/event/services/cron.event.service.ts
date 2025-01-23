@@ -3,7 +3,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import IUnitOfWork from 'src/common/unit-of-work.i';
 import { NotificationService } from './notification.service';
 import { UserJoinEntity } from '../domain/user-join.entity';
-import { NotificationQueueDTO } from '../../domain/event/dto/notify.dto';
+import { NotificationQueueDTO } from '../../domain/notification/notify.dto';
 
 @Injectable()
 export class CronEventService {
