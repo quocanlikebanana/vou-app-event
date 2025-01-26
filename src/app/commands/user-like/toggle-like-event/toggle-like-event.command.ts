@@ -1,7 +1,7 @@
 import ICommand from "src/common/app/command.i";
 import { ToggleLikeEventBody } from "./toggle-like-event.body";
 import { IUnitOfWork } from "src/common/domain/unit-of-work.i";
-import { IUserLikeRepository } from "src/domain/user-like-event/user-like.repo.i";
+import { IUserLikeRepository } from "src/domain/user-like/user-like.repo.i";
 import { IEventRepository } from "src/domain/event/event.repo.i";
 import { DomainError } from "src/common/error/domain.error";
 

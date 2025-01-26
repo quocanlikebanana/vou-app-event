@@ -5,7 +5,7 @@ import { PrismaUnitOfWork } from '../prisma/unit-of-work';
 import { NotificationService } from './notification.service';
 import { IEventRepository } from 'src/domain/event/event.repo.i';
 import { ActiveEventService } from 'src/domain/active-event-service/active-event.service';
-import { IUserLikeRepository } from 'src/domain/user-like-event/user-like.repo.i';
+import { IUserLikeRepository } from 'src/domain/user-like/user-like.repo.i';
 
 
 @Injectable()
