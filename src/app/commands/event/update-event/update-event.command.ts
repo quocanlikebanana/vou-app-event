@@ -17,6 +17,6 @@ export class UpdateEventCommand implements ICommand<UpdateEventBody> {
 		}
 		event.update(param);
 		await eventRepository.update(event);
-		await this.unitOfWork.executeTransactions();
+		await this.unitOfWork.commit();
 	}
 }

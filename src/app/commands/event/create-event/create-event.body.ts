@@ -22,6 +22,9 @@ export class CreateEventBody {
 	@IsString()
 	partnerId: string;
 
+	@IsNumber()
+	aboutToStartMark: number;
+
 	@IsArray({ each: true })
 	@Type(() => CreateGameOfEventBody)
 	gameOfEvents: CreateGameOfEventBody[];

@@ -13,6 +13,6 @@ export class ApproveEventCommand implements ICommand<ApproveEventBody> {
 		const event = await eventRepository.getById(param.eventId);
 		event.approve(param.isApproved);
 		await eventRepository.update(event);
-		await this.unitOfWork.executeTransactions();
+		await this.unitOfWork.commit();
 	}
 }

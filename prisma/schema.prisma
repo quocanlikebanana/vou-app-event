@@ -20,16 +20,20 @@ enum EventStatus {
 }
 
 model Event {
-    id          String      @id @default(uuid())
-    name        String
-    description String
-    image       String
-    eventStatus EventStatus
-    startDate   DateTime
-    endDate     DateTime
-    partnerId   String
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
+    id               String      @id @default(uuid())
+    name             String
+    description      String
+    image            String
+    eventStatus      EventStatus
+    startDate        DateTime
+    endDate          DateTime
+    partnerId        String
+    aboutToStartMark Int         @default(10000) // 10 seconds
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    Active_Event Active_Event?
 
     User_Like_Event User_Like_Event[]
     Game_Of_Event   Game_Of_Event[]
@@ -76,12 +80,19 @@ model Game_Of_Event {
     GameType GameType @relation(fields: [gameTypeId], references: [id], onDelete: Cascade)
 }
 
-model StartInOneDay_Event {
-    eventId          String   @id @default(uuid())
-    notificationDate DateTime
+enum ActiveEventStatus {
+    COMING
+    ABOUT_TO_START
+    STARTED
+    ENDED
 }
 
-model StartNow_Event {
-    eventId          String   @id @default(uuid())
-    notificationDate DateTime
+model Active_Event {
+    eventId     String            @id
+    status      ActiveEventStatus
+    hasNotified Boolean           @default(false)
+    createdAt   DateTime          @default(now())
+    updatedAt   DateTime          @updatedAt
+
+    Event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }

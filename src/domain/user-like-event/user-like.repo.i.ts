@@ -1,8 +1,5 @@
-import { UserLikeAggregate } from "./user-like.agg";
-
 export abstract class IUserLikeRepository {
-	abstract create(userLike: UserLikeAggregate): Promise<{ id: string }>;
-	abstract update(userLike: UserLikeAggregate): Promise<void>;
-	abstract delete(userLikeId: string): Promise<void>;
-	abstract getById(userLikeId: string): Promise<UserLikeAggregate>;
+	abstract checkUserLikedEvent(userId: string, eventId: string): Promise<boolean>;
+	abstract likeEvent(userId: string, eventId: string): Promise<void>;
+	abstract unlikeEvent(userId: string, eventId: string): Promise<void>;
 }

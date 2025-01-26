@@ -44,7 +44,7 @@ export class PrismaUnitOfWork implements IUnitOfWork, OnModuleDestroy {
 	/**
 	 * Executes a function within a (iterative) transaction. This implementation provide a more flexible way to handle transactions instead of only use the "saveChanges".
 	 */
-	async executeTransactions(): Promise<void> {
+	async commit(): Promise<void> {
 		const domainEvents: DomainEventBase[] = [];
 		try {
 			await this.prismaService.$transaction(async (tx) => {

@@ -4,7 +4,7 @@ import { EventAggregate } from '../../domain/event/core/event.agg';
 import IUnitOfWork from 'src/common/unit-of-work.i';
 import { EventStatus } from 'src/common/type';
 import { UserJoinEntity } from '../domain/user-join.entity';
-import { UserLikeEntity } from '../../domain/user-like-event/user-like.agg';
+import { UserLikeEntity } from '../../domain/user-like-event/user-like.dto';
 import { NotificationService } from './notification.service';
 import { DomainError } from 'src/common/domain.error';
 

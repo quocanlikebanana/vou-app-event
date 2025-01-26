@@ -18,6 +18,6 @@ export class CreateEventCommand implements ICommand<CreateEventBody> {
 			})),
 		});
 		await eventRepository.create(event);
-		await this.unitOfWork.executeTransactions();
+		await this.unitOfWork.commit();
 	}
 }

@@ -7,5 +7,5 @@ export abstract class IUnitOfWork {
 	 * Executes a function within a (iterative) transaction.
 	 * NOTE: Do note open the "gate" for too long, for example: send emails, notifications, .... (That's why it is called in each execute method, not at an common abstract method)
 	 */
-	abstract executeTransactions(): Promise<void>;
+	abstract commit(): Promise<void>;
 }

@@ -7,7 +7,7 @@ import { CreateEventDTO, UpdateEventDTO } from "../others/event.dto";
 import { EventStatus } from "../others/event-status.enum";
 import { GameOfEventEntity } from "./game-of-event.entity";
 import { dateFromNow } from "src/common/utils/date";
-import { EventCreatedDomainEvent } from "../event/event-created.de";
+import { EventApprovedDomainEvent } from "../event/event-approved.de";
 
 export type EventProps = {
 	name: string;
@@ -17,6 +17,7 @@ export type EventProps = {
 	startDate: Date;
 	endDate: Date;
 	partnerId: string;
+	aboutToStartMark: number;
 
 	gameOfEvents: GameOfEventEntity[];
 };
@@ -30,6 +31,9 @@ export class EventAggregate extends AggregateRoot<EventProps> {
 		}
 		if (props.gameOfEvents.length === 0) {
 			throw new DomainError("Event must have at least one game");
+		}
+		if (props.aboutToStartMark < 0) {
+			throw new DomainError("About to start mark must be positive");
 		}
 	}
 
@@ -51,7 +55,6 @@ export class EventAggregate extends AggregateRoot<EventProps> {
 				gameOfEvents,
 				eventStatus: status,
 			}, id);
-		newEvent.addDomainEvent(new EventCreatedDomainEvent(newEvent));
 		return newEvent;
 	}
 
@@ -78,6 +81,7 @@ export class EventAggregate extends AggregateRoot<EventProps> {
 		else {
 			this._eventStatusContext.reject();
 		}
+		this.addDomainEvent(new EventApprovedDomainEvent(this));
 	}
 
 	isStartingInSeconds(seconds: number): boolean {

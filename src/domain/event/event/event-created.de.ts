@@ -3,7 +3,7 @@ import { EventAggregate } from "../core/event.agg";
 
 export class EventCreatedDomainEvent extends DomainEventBase {
 	constructor(
-		public readonly event: EventAggregate,
+		public readonly event: EventAggregate
 	) {
 		super();
 	}
