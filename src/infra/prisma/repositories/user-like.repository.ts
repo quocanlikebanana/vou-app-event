@@ -1,16 +1,51 @@
 import { IUserLikeRepository } from "src/domain/user-like/user-like.repo.i";
+import { PrismaRepositoryBase } from "../prisma.repository.base";
+import { Prisma } from "@prisma/client";
 
-export class UserLikeRepository implements IUserLikeRepository {
-	checkUserLikedEvent(userId: string, eventId: string): Promise<boolean> {
-		throw new Error("Method not implemented.");
+export class UserLikeRepository extends PrismaRepositoryBase implements IUserLikeRepository {
+	async checkUserLikedEvent(userId: string, eventId: string): Promise<boolean> {
+		const like = await this.uow.getPrismaService().user_Like_Event.findFirst({
+			where: {
+				userId,
+				eventId
+			}
+		});
+		if (!like) return false;
+		return true;
 	}
-	likeEvent(userId: string, eventId: string): Promise<void> {
-		throw new Error("Method not implemented.");
+
+	async likeEvent(userId: string, eventId: string): Promise<void> {
+		this.uow.addPendingTransaction(async (tx: Prisma.TransactionClient) => {
+			await tx.user_Like_Event.create({
+				data: {
+					userId,
+					eventId
+				}
+			});
+		});
 	}
-	unlikeEvent(userId: string, eventId: string): Promise<void> {
-		throw new Error("Method not implemented.");
+
+	async unlikeEvent(userId: string, eventId: string): Promise<void> {
+		this.uow.addPendingTransaction(async (tx: Prisma.TransactionClient) => {
+			await tx.user_Like_Event.delete({
+				where: {
+					userId_eventId: {
+						userId,
+						eventId
+					}
+				}
+			});
+		});
 	}
-	getAllUsersLikedEvent(eventId: string): Promise<{ userId: string; }[]> {
-		throw new Error("Method not implemented.");
+
+	async getAllUsersLikedEvent(eventId: string): Promise<{ userId: string; }[]> {
+		return await this.uow.getPrismaService().user_Like_Event.findMany({
+			where: {
+				eventId
+			},
+			select: {
+				userId: true
+			}
+		});
 	}
 }

@@ -6,6 +6,7 @@ import { Prisma } from "@prisma/client";
 import { DomainEventBase } from "src/common/domain/domain-event.i";
 import { PrismaService } from "./prisma.service";
 import { IRepository } from "src/common/domain/repository.i";
+import AggregateBase from "src/common/domain/aggregate.base";
 
 export type AggregateTransaction = {
 	transaction: (tx: Prisma.TransactionClient) => Promise<void>;
@@ -25,8 +26,11 @@ export class PrismaUnitOfWork implements IUnitOfWork, OnModuleDestroy {
 		// this.repositories.set(IUserQuizRepository.name, new UserQuizRepository(this.prismaService, domainEventDispatcher));
 	}
 
-	addPendingTransaction(aggregateTransaction: AggregateTransaction) {
-		this.pendingTransactions.push(aggregateTransaction);
+	addPendingTransaction(transaction: (tx: Prisma.TransactionClient) => Promise<void>, agg?: AggregateBase<any>): void {
+		this.pendingTransactions.push({
+			transaction: transaction,
+			domainEvents: agg?.getEvents() ?? []
+		});
 	}
 
 	getPrismaService(): PrismaService {

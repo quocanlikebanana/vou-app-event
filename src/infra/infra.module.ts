@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from './common/prisma.service';
 import LoggerService from './common/logger.service';
-import { PrismaUnitOfWork } from './prisma/unit-of-work';
+import { PrismaUnitOfWork } from './prisma/prisma.unit-of-work';
 import { IUnitOfWork } from 'src/common/domain/unit-of-work.i';
 import { CronService } from './services/cron.service';
 import { ScheduleService } from './services/schedule.service';

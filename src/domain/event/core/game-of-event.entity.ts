@@ -1,4 +1,4 @@
-import { Entity } from "src/common/domain/entity.i";
+import { EntityBase } from "src/common/domain/entity.base";
 
 export type GameOfEventProps = {
 	eventId: string;
@@ -8,5 +8,5 @@ export type GameOfEventProps = {
 	image: string;
 }
 
-export class GameOfEventEntity extends Entity<GameOfEventProps> {
+export class GameOfEventEntity extends EntityBase<GameOfEventProps> {
 }

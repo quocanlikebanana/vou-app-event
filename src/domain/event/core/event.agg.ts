@@ -1,4 +1,4 @@
-import AggregateRoot from "src/common/domain/aggregate.i";
+import AggregateBase from "src/common/domain/aggregate.base";
 import { DomainError } from "src/common/error/domain.error";
 import { EventStatusContext } from "../others/event.state-dp";
 import { generateUUID } from "src/common/utils/generator";
@@ -22,7 +22,7 @@ export type EventProps = {
 	gameOfEvents: GameOfEventEntity[];
 };
 
-export class EventAggregate extends AggregateRoot<EventProps> {
+export class EventAggregate extends AggregateBase<EventProps> {
 	private readonly _eventStatusContext: EventStatusContext;
 
 	protected validate(props: EventProps): void {

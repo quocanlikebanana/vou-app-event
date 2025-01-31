@@ -1,7 +1,7 @@
 import { DomainEventBase } from "./domain-event.i";
-import { Entity } from "./entity.i";
+import { EntityBase } from "./entity.base";
 
-export default abstract class AggregateRoot<T> extends Entity<T> {
+export default abstract class AggregateBase<T> extends EntityBase<T> {
 	private readonly domainEvents: DomainEventBase[];
 
 	constructor(props: T, id: string) {

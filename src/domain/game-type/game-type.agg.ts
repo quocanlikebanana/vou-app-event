@@ -1,14 +1,14 @@
-import AggregateRoot from "src/common/domain/aggregate.i";
-import { GameStatus } from "./game-status.enum";
+import AggregateBase from "src/common/domain/aggregate.base";
+import { GameTypeStatus } from "./game-status.enum";
 
 export type GameTypeProps = {
 	name: string;
 	guide: string;
-	status: GameStatus;
+	status: GameTypeStatus;
 }
 
-export class GameTypeAggregate extends AggregateRoot<GameTypeProps> {
-	update(name: string, guide: string, status: GameStatus) {
+export class GameTypeAggregate extends AggregateBase<GameTypeProps> {
+	update(name: string, guide: string, status: GameTypeStatus) {
 		this.props.name = name;
 		this.props.guide = guide;
 		this.props.status = status;

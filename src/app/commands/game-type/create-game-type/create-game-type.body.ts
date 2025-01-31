@@ -1,5 +1,5 @@
 import { IsEnum, IsString } from "class-validator";
-import { GameStatus } from "src/domain/game-type/game-status.enum";
+import { GameTypeStatus } from "src/domain/game-type/game-status.enum";
 
 export class CreateGameTypeBody {
 	@IsString()
@@ -8,6 +8,6 @@ export class CreateGameTypeBody {
 	@IsString()
 	guide: string;
 
-	@IsEnum(GameStatus)
-	status: GameStatus;
+	@IsEnum(GameTypeStatus)
+	status: GameTypeStatus;
 }

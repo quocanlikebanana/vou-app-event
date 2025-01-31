@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaUnitOfWork } from "./unit-of-work";
+import { PrismaUnitOfWork } from "./prisma.unit-of-work";
 
 @Injectable()
 export class PrismaRepositoryBase {

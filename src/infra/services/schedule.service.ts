@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { IActiveEventRepository } from 'src/domain/active-event-service/active-event.repo.i';
-import { PrismaUnitOfWork } from '../prisma/unit-of-work';
+import { PrismaUnitOfWork } from '../prisma/prisma.unit-of-work';
 import { NotificationService } from './notification.service';
 import { IEventRepository } from 'src/domain/event/event.repo.i';
 import { ActiveEventService } from 'src/domain/active-event-service/active-event.service';
@@ -26,6 +26,6 @@ export class ScheduleService {
 			const usersId = users.map(u => u.userId);
 			await this.notificationService.boardcastNotificationToUsers(usersId, message);
 		}
-		await activeEventRepo.updateNotifiedAll();
+		await activeEventRepo.updateHasNotifiedAll();
 	}
 }

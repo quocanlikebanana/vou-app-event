@@ -1,4 +1,4 @@
-export abstract class Entity<T> {
+export abstract class EntityBase<T> {
 	private readonly _id: string;
 	private _props: T;
 
@@ -9,7 +9,7 @@ export abstract class Entity<T> {
 
 	protected validate(props: T): void { }
 
-	public equals(entity: Entity<T>): boolean {
+	public equals(entity: EntityBase<T>): boolean {
 		return entity._id === this._id;
 	}
 
