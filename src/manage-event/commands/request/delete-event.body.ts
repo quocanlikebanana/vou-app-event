@@ -1,6 +1,6 @@
 import { IsString } from "class-validator";
 
-export class EventStatsByIdParam {
+export class DeleteEventBody {
 	@IsString()
-	id: string;
+	eventId: string;
 }

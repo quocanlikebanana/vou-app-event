@@ -1,4 +1,4 @@
-import { shallowEqual, removeNullValues } from "../utils/object";
+import { shallowEqual, removeNullValues } from "../../utils/object";
 
 interface ValueObjectProps {
 	[index: string]: any;

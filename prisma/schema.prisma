@@ -20,15 +20,15 @@ enum EventStatus {
 }
 
 model Event {
-    id               String      @id @default(uuid())
-    name             String
-    description      String
-    image            String
-    eventStatus      EventStatus
-    startDate        DateTime
-    endDate          DateTime
-    partnerId        String
-    aboutToStartMark Int         @default(10000) // 10 seconds
+    id                  String      @id @default(uuid())
+    name                String
+    description         String
+    image               String
+    eventStatus         EventStatus
+    startDate           DateTime
+    endDate             DateTime
+    partnerId           String
+    hoursLeftToAnnounce Int
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

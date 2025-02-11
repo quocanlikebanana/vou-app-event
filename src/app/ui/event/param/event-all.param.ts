@@ -1,3 +1,3 @@
-import { PagingParamSup } from "../common/paging.param.sup";
+import { PagingParamSup } from "../../../../common/app/paging.param.sup";
 
 export class EventAllParam extends PagingParamSup { }

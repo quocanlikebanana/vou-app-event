@@ -1,3 +1,5 @@
-export class EventStatsPartnerParam {
+import { IsString } from "class-validator";
 
+export class EventStatsPartnerParam {
+	
 }

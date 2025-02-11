@@ -1,5 +1,5 @@
 import { IsString, IsOptional, IsIn, IsArray, Validate, ValidateNested, IsEnum } from "class-validator";
-import { PagingParamSup } from "../common/paging.param.sup";
+import { PagingParamSup } from "../../../../common/app/paging.param.sup";
 import { Type } from "class-transformer";
 import { EventStatus } from "@prisma/client";
 
